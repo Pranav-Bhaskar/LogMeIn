@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+echo "Enter Your Details :-";
+echo -n "Username : ";
+read u_name;
+echo -n "Password : ";
+read password;
+echo -n "Gateway of the host (Example \"192.168.217.111\") : ";
+read IP;
+echo -n "Port number of the host (Example \"1000\") (mostly 80/443) : ";
+read PORT;
+sudo echo "$u_name" > /usr/bin/.logmein.data;
+sudo echo "$password" >> /usr/bin/.logmein.data;
+sudo echo "$IP" >> /usr/bin/.logmein.data;
+sudo echo -n "$PORT" >> /usr/bin/.logmein.data;
+sudo cp ./logmein /usr/bin/;
+sudo chmod 777 /usr/bin/logmein;
+sudo chmod 777 /usr/bin/.logmein.data;
+echo "Installing libraries";
+sudo apt-get -y install python-mechanize;
+sudo echo "#!/usr/bin/env bash
+logmein || exit 0;" > /etc/init.d/logmein;
+sudo chmod 777 /etc/init.d/logmein;
+echo "Done";

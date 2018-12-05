@@ -1,0 +1,60 @@
+#!/usr/bin/python
+import socket
+import random
+import mechanize
+import cookielib
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+s.connect(('www.imdb.com', 80))
+
+def getter():
+	global DATA
+	DATA = []
+	try:
+		with open('/usr/bin/.logmein.data', 'r') as f:
+			for line in f:
+				DATA.append(line.strip())
+	except:
+		print('ERROR : Could not get data from file')
+def initer():
+	global br
+	br = mechanize.Browser()
+	cj = cookielib.LWPCookieJar()
+	br.set_handle_robots(False)
+	br.set_handle_equiv(True)
+	br.set_handle_referer(True)
+	br.set_handle_redirect(True)
+	br.set_cookiejar(cj)
+	br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
+
+def loger(host):
+	initer()
+	try:
+		br.addheaders = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1')]
+		site = br.open(host)
+		br.select_form(nr=0)
+		br.form['username'] = DATA[0]
+		br.form['password'] = DATA[1]
+		br.submit()
+	except KeyboardInterrupt:
+		print ("\n[*] Exiting program .. ")
+		sys.exit(1)
+
+def checker():
+	try:
+		s.sendall('GET / HTTP/1.1\r\nHost: www.imdb.com\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nDNT: 1\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1\r\n\r\n'.encode('utf-8'))
+		k = s.recv(4096).decode('utf-8')
+		if '\r\nLocation: http://'+DATA[2]+':'+DATA[3] in k:
+			k = k.split('\r\nLocation: ')
+			k = k[1]
+			k = k.split('\r')
+			host = k[0]
+			loger(host)
+	except KeyboardInterrupt:
+		print ("\n[*] Exiting program .. ")
+		sys.exit(1)
+
+if __name__ == '__main__':
+	getter()
+	checker()
