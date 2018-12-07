@@ -16,7 +16,7 @@ Give insatallation command :
 `sudo ./install`
 
 # Usage
-This code will auto execute every time you startup your system.
+This code will auto execute every time you connect to a new network.
   
 If it fails to do so, to login just enter this in your terminal :
 
