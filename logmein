@@ -4,19 +4,31 @@ import random
 import mechanize
 import cookielib
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+dir_linux = '/usr/bin/.logmein.data'
+dir_windows = 'C:\logmein\logmein.data'
 
-s.connect(('www.imdb.com', 80))
+def connector():
+	global s
+	while True:
+		try:
+			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			s.connect(('www.imdb.com', 80))
+			break
+		except:
+			print('Retrying...')
 
 def getter():
 	global DATA
 	DATA = []
 	try:
-		with open('/usr/bin/.logmein.data', 'r') as f:
+		with open(dir_linux, 'r') as f:
 			for line in f:
 				DATA.append(line.strip())
 	except:
-		print('ERROR : Could not get data from file')
+		with open(dir_windows, 'r') as f:
+			for line in f:
+				DATA.append(line.strip())
+
 def initer():
 	global br
 	br = mechanize.Browser()
@@ -56,5 +68,6 @@ def checker():
 		sys.exit(1)
 
 if __name__ == '__main__':
+	connector()
 	getter()
 	checker()
