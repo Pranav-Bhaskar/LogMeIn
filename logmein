@@ -3,6 +3,7 @@ import socket
 import random
 import mechanize
 import cookielib
+import sys
 
 dir_linux = '/usr/bin/.logmein.data'
 dir_windows = 'C:\logmein\logmein.data'
@@ -12,7 +13,9 @@ def connector():
 	while True:
 		try:
 			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			s.settimeout(3)
 			s.connect(('www.imdb.com', 80))
+			s.settimeout(None)
 			break
 		except:
 			print('Retrying...')
@@ -56,7 +59,13 @@ def loger(host):
 def checker():
 	try:
 		s.sendall('GET / HTTP/1.1\r\nHost: www.imdb.com\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nDNT: 1\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1\r\n\r\n'.encode('utf-8'))
-		k = s.recv(4096).decode('utf-8')
+		try:
+			s.settimeout(3)
+			k = s.recv(4096).decode('utf-8')
+			s.settimeout(None)
+		except:
+			print('Error : Connection timeout')
+			return
 		if '\r\nLocation: http://'+DATA[2]+':'+DATA[3] in k:
 			k = k.split('\r\nLocation: ')
 			k = k[1]
