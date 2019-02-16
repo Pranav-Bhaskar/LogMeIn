@@ -10,6 +10,7 @@ dir_windows = 'C:\logmein\logmein.data'
 
 def connector():
 	global s
+	retry = 3
 	while True:
 		try:
 			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -18,7 +19,11 @@ def connector():
 			s.settimeout(None)
 			break
 		except:
+			if retry == 0:
+				print('Couldnot connect to server.\nExitting...\n')
+				sys.exit(1)
 			print('Retrying...')
+			retry -= 1
 
 def getter():
 	global DATA
