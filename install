@@ -13,13 +13,12 @@ sudo echo "$password" >> /usr/bin/.logmein.data;
 sudo echo "$IP" >> /usr/bin/.logmein.data;
 sudo echo -n "$PORT" >> /usr/bin/.logmein.data;
 sudo cp ./logmein /usr/bin/;
-sudo chmod 777 /usr/bin/logmein;
-sudo chmod 777 /usr/bin/.logmein.data;
+sudo chmod 755 /usr/bin/logmein;
+sudo chmod 755 /usr/bin/.logmein.data;
 echo "Installing libraries";
 sudo apt-get -y install python-mechanize;
 sudo touch /etc/network/if-up.d/logmein;
 sudo chmod 777 /etc/network/if-up.d/logmein;
-sudo echo '#!/usr/bin/env bash
-sleep 5;
-/usr/bin/logmein || exit 0;' > /etc/network/if-up.d/logmein;
+sudo sh -c "echo '#!/usr/bin/env bash
+/usr/bin/logmein || exit 0;' > /etc/network/if-up.d/logmein;"
 echo "Done";
