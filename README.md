@@ -34,11 +34,11 @@ Double click on win_install.bat
   
 Open your CMD and type the following :
   
-`C:\python27\pyton.exe -m pip --upgrade pip`
+`C:\python27\python.exe -m pip install --upgrade pip`
   
 and then to install mechenize
   
-`C:\python27\pyton.exe -m pip --upgrade mechenize`
+`C:\python27\python.exe -m pip install --upgrade mechanize`
 
 # Usage
 This code will auto execute every time you connect to a new network.
