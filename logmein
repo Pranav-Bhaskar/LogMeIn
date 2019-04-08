@@ -6,7 +6,7 @@ import cookielib
 import sys
 
 dir_linux = '/usr/bin/.logmein.data'
-dir_windows = 'C:\logmein\logmein.data'
+dir_windows = 'C:\Program Files\LogMeIn\logmein.data'
 
 def connector():
 	global s
