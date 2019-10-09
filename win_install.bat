@@ -1,6 +1,6 @@
 @echo off
 echo  Ensure that you have python 2.7 installed in the directory "C:\Python27\"
-echo  Copping files
+echo  Copying Files...
 mkdir "%ProgramFiles%\LogMeIn"
 mkdir "%ProgramFiles%\LogMeIn\bin"
 copy /y "%~dp0logmein" "%ProgramFiles%\LogMeIn\"
