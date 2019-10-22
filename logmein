@@ -15,7 +15,7 @@ def connector():
 		try:
 			s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 			s.settimeout(3)
-			s.connect(('www.imdb.com', 80))
+			s.connect(('www.aitpune.com', 80))
 			s.settimeout(None)
 			break
 		except:
@@ -63,7 +63,7 @@ def loger(host):
 
 def checker():
 	try:
-		s.sendall('GET / HTTP/1.1\r\nHost: www.imdb.com\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nDNT: 1\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1\r\n\r\n'.encode('utf-8'))
+		s.sendall('GET / HTTP/1.1\r\nHost: www.aitpune.com\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nDNT: 1\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1\r\n\r\n'.encode('utf-8'))
 		try:
 			s.settimeout(3)
 			k = s.recv(4096).decode('utf-8')
