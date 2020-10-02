@@ -16,6 +16,7 @@ sudo cp ./logmein /usr/bin/;
 sudo chmod 755 /usr/bin/logmein;
 sudo chmod 755 /usr/bin/.logmein.data;
 echo "Installing libraries";
+sudo apt-get update;
 sudo apt-get -y install python-mechanize;
 sudo touch /etc/network/if-up.d/logmein;
 sudo chmod 777 /etc/network/if-up.d/logmein;
