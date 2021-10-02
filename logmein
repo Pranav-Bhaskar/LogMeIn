@@ -8,6 +8,16 @@ import sys
 dir_linux = '/usr/bin/.logmein.data'
 dir_windows = 'C:\Program Files\LogMeIn\logmein.data'
 
+"""
+This following functions are used for creating this application which will automatically log in to the firewall of AIT
+
+connector
+getter
+initer
+loger
+checker
+"""
+
 def connector():
 	global s
 	retry = 3
